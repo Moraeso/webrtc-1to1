@@ -33,7 +33,7 @@ const App = () => {
   };
 
   const startWebsocket = () => {
-    ws = new WebSocket('ws://local:3001');
+    ws = new WebSocket('ws://localhost:3001');
 
     ws.onopen = () => {
       ws.send(JSON.stringify({
@@ -113,11 +113,11 @@ const App = () => {
         }
       });
 
-      connection.addEventListener('iceconnectionstatechange', (e) => {
+      connection.addEventListener('iceconnectionstatechange', () => {
         console.log(connection.iceConnectionState);
       });
 
-      connection.addEventListener('connectionstatechange', (e) => {
+      connection.addEventListener('connectionstatechange', () => {
         console.log(connection.connectionState);
       });
 
@@ -126,19 +126,19 @@ const App = () => {
     start();
   }, []);
 
-  const onClick = async () => {
-    offer = await connection.createOffer({
-      offerToReceiveAudio: false,
-      offerToReceiveVideo: true,
-    });
-    await connection.setLocalDescription(offer);
-
-    ws.send(JSON.stringify({
-      type: 'offer',
-      data: offer,
-    }));
-    console.log('send offer');
-  }
+  // const onClick = async () => {
+  //   offer = await connection.createOffer({
+  //     offerToReceiveAudio: false,
+  //     offerToReceiveVideo: true,
+  //   });
+  //   await connection.setLocalDescription(offer);
+  //
+  //   ws.send(JSON.stringify({
+  //     type: 'offer',
+  //     data: offer,
+  //   }));
+  //   console.log('send offer');
+  // };
 
   return (
     <div>
